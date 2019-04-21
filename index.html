@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="Content/css/style.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>Document</title>
+    <style media="screen">
+    body{
+        font-family: 'Roboto', sans-serif;
+    }
+    .img-background {
+        background: url(https://cdn.pixabay.com/photo/2018/10/15/21/59/smarthome-3750136_960_720.jpg);
+        content: "";
+      opacity: 0.5;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+    }
+    .content{
+        height: 150px;
+        width: 445px;
+        border: 1px solid white;
+        border-radius: 6px;
+        background: white;
+        position: absolute;
+        top: calc(50% - 170px);
+        left: calc(50% - 170px);
+        opacity: 0.9;
+    }
+    .status{
+        width: 6px;
+        height: 6px;
+        border: 1px solid #0EA501;
+        background: #0EA501;
+        border-radius: 50%;
+        position: relative;
+        top: 8px;
+        left: 4px;
+    }
+    .light{
+        height: 60px;
+        width: 445px;
+        border: 1px solid white;
+        border-radius: 6px;
+        background: white;
+        position: absolute;
+        top: calc(50% - 9px);
+        left: calc(50% - 170px);
+        opacity: 0.9;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 43px;
+        height: 22px;
+        top: 18px;
+        left: 20px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 3px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196F3;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(20px);
+        -ms-transform: translateX(22px);
+        transform: translateX(22px);
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+
+      .onoffswitch {
+        position: relative; width: 55px;
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+        top: 18px;
+        left: 16px;
+    }
+    .onoffswitch-checkbox {
+        display: none;
+    }
+    .onoffswitch-label {
+        display: block; overflow: hidden; cursor: pointer;
+        border: 2px solid #999999; border-radius: 20px;
+    }
+    .onoffswitch-inner {
+        display: block; width: 200%; margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+        display: block; float: left; width: 50%; height: 18px; padding: 0; line-height: 18px;
+        font-size: 12px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+        box-sizing: border-box;
+    }
+    .onoffswitch-inner:before {
+        content: "ON";
+        padding-left: 8px;
+        background-color: #34A7C1; color: #FFFFFF;
+    }
+    .onoffswitch-inner:after {
+        content: "OFF";
+        padding-right: 8px;
+        background-color: #EEEEEE; color: #999999;
+        text-align: right;
+    }
+    .onoffswitch-switch {
+        display: block; width: 14px; margin: 4px;
+        background: #FFFFFF;
+        position: absolute; top: 0; bottom: 0;
+        right: 33px;
+        border: 2px solid #999999; border-radius: 20px;
+        transition: all 0.3s ease-in 0s;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 0px;
+    }
+
+
+    /** Basic style **/
+    *, *:before, *:after {
+      margin:0;
+      padding:0;
+      -webkit-box-sizing:border-box;
+      -moz-box-sizing:border-box;
+      box-sizing:border-box;
+    }
+    body {background:#2f323c;}
+    html, body {
+      width:100%;
+      height:100%;
+    }
+    #lamp {
+      position:relative;
+      width:100vw;
+      height:100vh;
+      overflow:hidden;
+    }
+
+    /** Style for switch button **/
+    input[name="switch"], input[name="switch"] + label {
+      position:absolute;
+      bottom:3rem;
+      width:4rem;
+      height:4rem;
+    }
+    input[name="switch"] + label {right:3rem;}
+    input[name="switch"] {
+      opacity:0;
+      z-index:9;
+      cursor:pointer;
+    }
+    input[value="on"] {
+      right:3rem;
+      opacity: 1;
+    }
+    input[value="off"] {
+      right:-4rem;
+      opacity: 0.3;
+    }
+    input[value="on"]:checked {
+      right:-4rem;
+    }
+    input[value="on"]:checked + input[value="off"] {
+      right:3rem;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="img-background">
+    </div>
+    <div class="content">
+        <div style="position:absolute; top:16px; left: 20px;">
+            <h3>Heating</h3>
+            <div class="" style="">
+                <div>Temperature </div>
+                <!-- <h4 id="temp"></h4> -->
+                <span style="font-size: 24px" id="temp"></span><span> &#176C</span>
+            </div>
+
+            <div class="" style="position: absolute; top: 42px; left: 184px;">
+                <div>Humidity </div>
+                <span style="font-size: 24px" id="humid"></span><span> %</span>
+            </div>
+
+            <div style="display: flex;">
+                <div style="font-size: 14px;">Entire house running is Auto</div>
+                <div class="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="light">
+        <label class="switch">
+            <input id="switch" type="checkbox" checked>
+            <span class="slider round"></span>
+        </label>
+        <div type="text" name="" value="" id="a" style="display :none">
+    </div>
+
+    <!-- <div class="light">
+      <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch" >
+          <label class="onoffswitch-label" for="myonoffswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+          </label>
+          <div type="text" name="" value="" id="a" style="display :none">
+      </div>
+    </div>
+  </div> -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="JavaScript/javascript.js"></script> -->
+    <script>
+    $(document).ready(function(){
+      var config = {
+        apiKey: "AIzaSyDmp-kWH8HAC3qf7Adsu-M7zny73H6lahc",
+        authDomain: "fir-ec7f0.firebaseapp.com",
+        databaseURL: "https://fir-ec7f0.firebaseio.com",
+        projectId: "fir-ec7f0",
+        storageBucket: "fir-ec7f0.appspot.com",
+        messagingSenderId: "224346207826"
+      };
+      firebase.initializeApp(config);
+        // Thêm dữ liệu
+        function writePost(title, content) {
+            firebase.database().ref('post/').set({
+                title: title,
+                content: content
+            })
+        }
+
+        var dbRef = firebase.database().ref().child('nhiet do');
+        dbRef.on('value', snap => $('#temp').html(snap.val()));
+
+        var dbRefHumid = firebase.database().ref().child('do am');
+        dbRefHumid.on('value', snap => $('#humid').html(snap.val()));
+
+        var dbRefSwitch = firebase.database().ref().child('switch');
+        dbRefSwitch.on('value', snap => $('#a').html(snap.val()));
+
+        setInterval(function(){
+          if ($('#a').html() == 1) {
+            $('#switch').prop('checked', true);
+          }
+          else {
+            $('#switch').prop('checked', false);
+          }
+        }, 2000);
+
+        $('#switch').click(function(){
+          if ($('#switch').is(":checked") == true) {
+            $('#a').html(1);
+          }
+          else {
+            $('#a').html(0);
+          }
+          var update_switch = firebase.database().ref();
+          update_switch.update({switch: $('#a').html()});
+        });
+    })
+
+    </script>
+</body>
+</html>
